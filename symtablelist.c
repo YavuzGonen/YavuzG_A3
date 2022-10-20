@@ -62,7 +62,7 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey, const void *pvVa
     while(tracer != NULL) {
         if(strcmp(tracer->key,pcKey)) {
             oldValue = tracer->value;
-            tracer->value = pvValue;
+            tracer->value = (void*)pvValue;
             return oldValue;
         }
         tracer = tracer->next;
@@ -116,7 +116,7 @@ const void *pvExtra) {
     struct Node* tracer = oSymTable->first;
     assert(oSymTable != NULL);
     while(tracer != NULL) {
-        pfApply(tracer->key, tracer->value, pvExtra);
+        pfApply(tracer->key, tracer->value, (void*)pvExtra);
         tracer = tracer->next;
     }
 }
