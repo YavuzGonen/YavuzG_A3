@@ -1,5 +1,6 @@
 #ifndef STACK_INCLUDED
 #define STACK_INCLUDED
+#include "stddef.h"
 struct SymTable;
 typedef struct SymTable *SymTable_T;
 
