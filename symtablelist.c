@@ -43,9 +43,15 @@ size_t SymTable_getLength(SymTable_T oSymTable) {
 int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     struct Node *psNewNode = (struct Node*)malloc(sizeof(struct Node));
     if (psNewNode == NULL) return 0;
+    
+    if(SymTable_contains(oSymTable, pcKey)) return 0;
+    
     assert(oSymTable != NULL);
+    psNewNode->key = (const char*)malloc(strlen(pcKey) + 1);
+    if (psNewNode->key == NULL) return 0;
+    
     psNewNode->value = (void*)pvValue;    
-    psNewNode->key = pcKey;
+    strcpy((char*)psNewNode->key, pcKey);
     psNewNode->next = oSymTable->first;
     oSymTable->first = psNewNode;
     oSymTable->length++;
@@ -57,7 +63,7 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey, const void *pvVa
     struct Node* tracer = oSymTable->first;
     assert(oSymTable != NULL); 
     while(tracer != NULL) {
-        if(strcmp(tracer->key,pcKey)) {
+        if(!strcmp(tracer->key,pcKey)) {
             oldValue = tracer->value;
             tracer->value = (void*)pvValue;
             return oldValue;
@@ -71,7 +77,7 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
     struct Node* tracer = oSymTable->first; 
     assert(oSymTable != NULL);
     while(tracer != NULL) {
-        if(strcmp(tracer->key,pcKey)) return 1;
+        if(!strcmp(tracer->key,pcKey)) return 1;
         tracer = tracer->next;
     }
     return 0;
@@ -81,7 +87,7 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
     struct Node* tracer = oSymTable->first; 
     assert(oSymTable != NULL);
     while(tracer != NULL) {
-        if(strcmp(tracer->key,pcKey)) return tracer->value;
+        if(!strcmp(tracer->key,pcKey)) return tracer->value;
         tracer = tracer->next;
     }
     return NULL;
@@ -95,7 +101,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     tracer1 = oSymTable->first; 
     tracer2 = tracer1->next;
     while(tracer2 != NULL) {
-        if(strcmp(tracer2->key,pcKey)) {
+        if(!strcmp(tracer2->key,pcKey)) {
             output = tracer2->value;
             tracer1->next = tracer2->next;
             free(tracer2);
