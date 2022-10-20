@@ -16,9 +16,8 @@ struct SymTable {
     size_t length;
 };
 
-struct SymTable *new() {
-    struct SymTable *p;
-    p = calloc(1, sizeof(*p));
+SymTable_T SymTable_new(void) {
+    SymTable_T p = calloc(1, sizeof(SymTable_T));
     if(p == NULL) return NULL;
     p->length = 0;
     return p;
