@@ -1,6 +1,9 @@
 #include "stdio.h"
 #include "symtable.h"
 #include "string.h"
+#include "stddef.h"
+#include "stdlib.h"
+#include "assert.h"
 
 struct Node {
     const char *key;
