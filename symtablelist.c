@@ -20,6 +20,7 @@ SymTable_T SymTable_new(void) {
     SymTable_T p = calloc(1, sizeof(SymTable_T));
     if(p == NULL) return NULL;
     p->length = 0;
+    p->first = NULL;
     return p;
 }
 
@@ -37,6 +38,7 @@ void SymTable_free(SymTable_T oSymTable) {
 }
 
 size_t SymTable_getLength(SymTable_T oSymTable) {
+    assert(oSymTable != NULL);
     return oSymTable->length;
 }
 
