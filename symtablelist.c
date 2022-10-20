@@ -100,6 +100,15 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     assert(oSymTable != NULL);
     tracer1 = oSymTable->first; 
     tracer2 = tracer1->next;
+
+    if(!strcmp(tracer1->key,pcKey)) {
+            output = tracer1->value;
+            oSymTable->first = tracer1->next;
+            free(tracer1);
+            oSymTable->length--;
+            return output;
+    }
+
     while(tracer2 != NULL) {
         if(!strcmp(tracer2->key,pcKey)) {
             output = tracer2->value;
