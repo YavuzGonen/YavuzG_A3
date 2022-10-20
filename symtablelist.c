@@ -48,7 +48,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     psNewNode->key = (const char*)malloc(strlen(pcKey) + 1);
     if (psNewNode->key == NULL) return 0;
     
-    psNewNode->value = pvValue;    
+    psNewNode->value = (void*)pvValue;    
     strcpy((char*)psNewNode->key, pcKey);
     psNewNode->next = oSymTable->first;
     oSymTable->first = psNewNode;
@@ -58,8 +58,8 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
 
 void *SymTable_replace(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     void *oldValue;
-    assert(oSymTable != NULL);
-    struct Node* tracer = oSymTable->first; 
+    struct Node* tracer = oSymTable->first;
+    assert(oSymTable != NULL); 
     while(tracer != NULL) {
         if(strcmp(tracer->key,pcKey)) {
             oldValue = tracer->value;
@@ -72,8 +72,8 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey, const void *pvVa
 }
 
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
-    assert(oSymTable != NULL);
     struct Node* tracer = oSymTable->first; 
+    assert(oSymTable != NULL);
     while(tracer != NULL) {
         if(strcmp(tracer->key,pcKey)) return 1;
         tracer = tracer->next;
@@ -82,8 +82,8 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
 }
 
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
-    assert(oSymTable != NULL);
     struct Node* tracer = oSymTable->first; 
+    assert(oSymTable != NULL);
     while(tracer != NULL) {
         if(strcmp(tracer->key,pcKey)) return tracer->value;
         tracer = tracer->next;
@@ -93,9 +93,11 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
 
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     void *output;
+    struct Node* tracer1; 
+    struct Node* tracer2;
     assert(oSymTable != NULL);
-    struct Node* tracer1 = oSymTable->first; 
-    struct Node* tracer2 = tracer1->next;
+    tracer1 = oSymTable->first; 
+    tracer2 = tracer1->next;
     while(tracer2 != NULL) {
         if(strcmp(tracer2->key,pcKey)) {
             output = tracer2->value;
