@@ -48,6 +48,7 @@ void SymTable_free(SymTable_T oSymTable) {
     struct Binding* temp;
     for(i = 0; i < oSymTable->max; i++) {
         tracer = oSymTable->buckets[i];
+        if(tracer == NULL) free(tracer);
         while(tracer != NULL) {
             temp = tracer->next;
             free(tracer);
