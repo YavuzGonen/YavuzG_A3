@@ -30,6 +30,7 @@ void SymTable_free(SymTable_T oSymTable) {
     assert(oSymTable != NULL);
     while(tracer1 != NULL) {
         tracer2 = tracer1->next;
+        free(tracer1->key);
         free(tracer1);
         tracer1 = tracer2;
     }
