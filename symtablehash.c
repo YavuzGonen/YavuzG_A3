@@ -52,7 +52,7 @@ void SymTable_free(SymTable_T oSymTable) {
         while(tracer != NULL) {
             temp = tracer->next;
             free(tracer->value);
-            free(tracer->key);
+            free((void*)tracer->key);
             free(tracer);
             tracer = temp;
         }
