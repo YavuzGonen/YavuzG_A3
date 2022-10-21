@@ -50,6 +50,8 @@ void SymTable_free(SymTable_T oSymTable) {
         tracer = oSymTable->buckets[i];
         while(tracer != NULL) {
             temp = tracer->next;
+            free(tracer->key);
+            free(tracer->value);
             free(tracer);
             tracer = temp;
         }
@@ -95,7 +97,9 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
         if(!out) return out;
     }
 
-    newEntry->key = pcKey;
+    newEntry->key = (const char*)malloc(strlen(pcKey) + 1);
+    if (newEntry->key == NULL) return 0;
+    strcpy((char*)newEntry->key, pcKey);
     newEntry->value = (void*)pvValue;
 
     if(oSymTable->buckets[hash] == NULL) oSymTable->buckets[hash] = newEntry;
