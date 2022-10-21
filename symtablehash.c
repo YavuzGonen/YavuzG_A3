@@ -32,7 +32,7 @@ struct SymTable {
 };
 
 SymTable_T SymTable_new(void) {
-    int i;
+    size_t i;
     SymTable_T* newHashTable = (SymTable_T*)calloc(1, sizeof(SymTable_T));
     (*newHashTable)->length = 0;
     (*newHashTable)->max = auBucketCounts[0];
@@ -43,7 +43,7 @@ SymTable_T SymTable_new(void) {
 }
 
 void SymTable_free(SymTable_T oSymTable) {
-    int i;
+    size_t i;
     struct Binding* tracer;
     struct Binding* temp;
     for(i = 0; i < oSymTable->max; i++) {
@@ -96,7 +96,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     }
 
     newEntry->key = pcKey;
-    newEntry->value = pvValue;
+    newEntry->value = (void*)pvValue;
 
     if(oSymTable->buckets[hash] == NULL) oSymTable->buckets[hash] = newEntry;
     else {
@@ -110,13 +110,13 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
 void *SymTable_replace(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     void *output;
     int hash = SymTable_hash(pcKey, oSymTable->max);
+    struct Binding *trace = oSymTable->buckets[hash];
     assert(oSymTable != NULL);
     if(oSymTable->buckets[hash] == NULL) return NULL;
-    struct Binding *trace = oSymTable->buckets[hash];
     while(trace != NULL) {
         if(strcmp(trace->key,pcKey)) {
             output = trace->value;
-            trace->value = pvValue;
+            trace->value = (void*)pvValue;
             return output;
         }
         trace = trace->next;
@@ -126,9 +126,9 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey, const void *pvVa
 
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
     int hash = SymTable_hash(pcKey, oSymTable->max);
+    struct Binding *trace = oSymTable->buckets[hash];
     assert(oSymTable != NULL);
     if(oSymTable->buckets[hash] == NULL) return 0;
-    struct Binding *trace = oSymTable->buckets[hash];
     while(trace != NULL) {
         if(strcmp(trace->key,pcKey)) return 1;
         trace = trace->next;
@@ -138,9 +138,9 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
 
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
     int hash = SymTable_hash(pcKey, oSymTable->max);
+    struct Binding *trace = oSymTable->buckets[hash];
     assert(oSymTable != NULL);
     if(oSymTable->buckets[hash] == NULL) return NULL;
-    struct Binding *trace = oSymTable->buckets[hash];
     while(trace != NULL) {
         if(strcmp(trace->key,pcKey)) return trace->value;
         trace = trace->next;
@@ -151,9 +151,9 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     void *output;
     int hash = SymTable_hash(pcKey, oSymTable->max);
-    assert(oSymTable != NULL);
     struct Binding* tracer1 = oSymTable->buckets[hash]; 
     struct Binding* tracer2 = tracer1->next;
+    assert(oSymTable != NULL);
     while(tracer2 != NULL) {
         if(strcmp(tracer2->key,pcKey)) {
             output = tracer2->value;
@@ -170,12 +170,12 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
 
 void SymTable_map(SymTable_T oSymTable, void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra), 
 const void *pvExtra) {
-    int i;
+    size_t i;
     struct Binding* bucketTracer;
     for(i = 0; i < oSymTable->max; i++) {
         bucketTracer = oSymTable->buckets[i];
         while(bucketTracer != NULL) {
-            pfApply(bucketTracer->key, bucketTracer->value, pvExtra);
+            pfApply(bucketTracer->key, bucketTracer->value, (void*)pvExtra);
             bucketTracer = bucketTracer->next;
         }
     }
