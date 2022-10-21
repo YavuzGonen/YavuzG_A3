@@ -45,8 +45,8 @@ size_t SymTable_getLength(SymTable_T oSymTable) {
 int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     struct Node *psNewNode = (struct Node*)malloc(sizeof(struct Node));
     if (psNewNode == NULL) return 0;
-    if(SymTable_contains(oSymTable, pcKey)) return 0;
     assert(oSymTable != NULL);
+    if(SymTable_contains(oSymTable, pcKey)) return 0;
     psNewNode->key = (const char*)malloc(strlen(pcKey) + 1);
     if (psNewNode->key == NULL) return 0;
     
