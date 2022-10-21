@@ -47,16 +47,15 @@ void SymTable_free(SymTable_T oSymTable) {
     struct Binding* tracer;
     struct Binding* temp;
     for(i = 0; i < oSymTable->max; i++) {
-        tracer = oSymTable->buckets[i]->next;
-        free(oSymTable->buckets[i]);
+        tracer = oSymTable->buckets[i];
+        if(tracer == NULL) free(tracer);
         while(tracer != NULL) {
             temp = tracer->next;
-            free(tracer->value);
-            free((void*)tracer->key);
             free(tracer);
             tracer = temp;
         }
     }
+    oSymTable->length = 0;
     free(oSymTable);
 }
 
@@ -100,8 +99,6 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     newEntry->key = (const char*)malloc(strlen(pcKey) + 1);
     if (newEntry->key == NULL) return 0;
     strcpy((char*)newEntry->key, pcKey);
-
-    newEntry->value = malloc(sizeof(pvValue));
     newEntry->value = (void*)pvValue;
 
     if(oSymTable->buckets[hash] == NULL) oSymTable->buckets[hash] = newEntry;
