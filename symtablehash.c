@@ -50,8 +50,6 @@ void SymTable_free(SymTable_T oSymTable) {
         tracer = oSymTable->buckets[i];
         while(tracer != NULL) {
             temp = tracer->next;
-            free((void*)tracer->key);
-            free(tracer->value);
             free(tracer);
             tracer = temp;
         }
