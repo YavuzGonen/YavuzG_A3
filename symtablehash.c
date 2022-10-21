@@ -114,7 +114,7 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey, const void *pvVa
     assert(oSymTable != NULL);
     if(oSymTable->buckets[hash] == NULL) return NULL;
     while(trace != NULL) {
-        if(strcmp(trace->key,pcKey)) {
+        if(!strcmp(trace->key,pcKey)) {
             output = trace->value;
             trace->value = (void*)pvValue;
             return output;
@@ -130,7 +130,7 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
     assert(oSymTable != NULL);
     if(oSymTable->buckets[hash] == NULL) return 0;
     while(trace != NULL) {
-        if(strcmp(trace->key,pcKey)) return 1;
+        if(!strcmp(trace->key,pcKey)) return 1;
         trace = trace->next;
     }
     return 0;
@@ -142,7 +142,7 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
     assert(oSymTable != NULL);
     if(oSymTable->buckets[hash] == NULL) return NULL;
     while(trace != NULL) {
-        if(strcmp(trace->key,pcKey)) return trace->value;
+        if(!strcmp(trace->key,pcKey)) return trace->value;
         trace = trace->next;
     }
     return NULL;
@@ -155,7 +155,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     struct Binding* tracer2 = tracer1->next;
     assert(oSymTable != NULL);
     while(tracer2 != NULL) {
-        if(strcmp(tracer2->key,pcKey)) {
+        if(!strcmp(tracer2->key,pcKey)) {
             output = tracer2->value;
             tracer1->next = tracer2->next;
             free(tracer2);
