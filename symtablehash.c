@@ -88,9 +88,8 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     int hash = SymTable_hash(pcKey, oSymTable->max);
     struct Binding *newEntry = (struct Binding*)malloc(sizeof(struct Binding*));
     assert(oSymTable != NULL);
-
+    assert(newEntry != NULL);
     if(SymTable_contains(oSymTable, pcKey)) return 0;
-    
     if(oSymTable->length == oSymTable->max) {
         out = expand(oSymTable);
         if(!out) return out;
