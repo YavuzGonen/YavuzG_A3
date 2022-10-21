@@ -33,13 +33,13 @@ struct SymTable {
 
 SymTable_T SymTable_new(void) {
     size_t i;
-    SymTable_T* newHashTable = (SymTable_T*)calloc(1, sizeof(SymTable_T));
-    (*newHashTable)->length = 0;
-    (*newHashTable)->max = auBucketCounts[0];
-    (*newHashTable)->buckets = (struct Binding**)calloc(auBucketCounts[0], sizeof(struct Binding*));
+    SymTable_T newHashTable = (SymTable_T)calloc(1, sizeof(SymTable_T));
+    newHashTable->length = 0;
+    newHashTable->max = auBucketCounts[0];
+    newHashTable->buckets = (struct Binding**)calloc(auBucketCounts[0], sizeof(struct Binding*));
     for (i = 0; i < auBucketCounts[0]; i++)
-        (*newHashTable)->buckets[i] = NULL;
-    return *newHashTable;
+        newHashTable->buckets[i] = NULL;
+    return newHashTable;
 }
 
 void SymTable_free(SymTable_T oSymTable) {
