@@ -31,7 +31,7 @@ void SymTable_free(SymTable_T oSymTable) {
     tracer = oSymTable->first;
     while(tracer != NULL) {
         temp = tracer->next;
-        free(tracer->key);
+        free((void*)tracer->key);
         free(tracer);
         tracer = temp;
     }
@@ -118,7 +118,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     if(!strcmp(tracer1->key,pcKey)) {
         output = tracer1->value;
         oSymTable->first = tracer1->next;
-        free(tracer1->key);
+        free((void*)tracer1->key);
         free(tracer1);
         oSymTable->length--;
         return output;
@@ -128,7 +128,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
         if(!strcmp(tracer2->key,pcKey)) {
             output = tracer2->value;
             tracer1->next = tracer2->next;
-            free(tracer2->key);
+            free((void*)tracer2->key);
             free(tracer2);
             oSymTable->length--;
             return output;
