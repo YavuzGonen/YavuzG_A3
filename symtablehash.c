@@ -59,8 +59,7 @@ void SymTable_free(SymTable_T oSymTable) {
     free(oSymTable);
 }
 
-static int expand(SymTable_T oSymTable)
-{
+static int expand(SymTable_T oSymTable) {
     struct Binding **newBuckets;
     size_t newMax;
     size_t i;
@@ -94,7 +93,6 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
         out = expand(oSymTable);
         if(!out) return out;
     }
-
     newEntry->key = (const char*)malloc(strlen(pcKey) + 1);
     if (newEntry->key == NULL) return 0;
     strcpy((char*)newEntry->key, pcKey);
