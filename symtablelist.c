@@ -25,16 +25,16 @@ SymTable_T SymTable_new(void) {
 }
 
 void SymTable_free(SymTable_T oSymTable) {
-    struct Node* tracer1 = oSymTable->first;
+    struct Node* tracer1;
     struct Node* tracer2;
     assert(oSymTable != NULL);
-    while(tracer1 != NULL) {
-        tracer2 = tracer1->next;
+
+    for (tracer1 = oSymTable->first; tracer1 != NULL; tracer1 = tracer2) {
         free((void*)tracer1->key);
+        tracer2 = tracer1->next;
         free(tracer1);
-        tracer1 = tracer2;
     }
-    free(tracer1);
+
     free(oSymTable);
 }
 
@@ -47,9 +47,12 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     struct Node *psNewNode = (struct Node*)malloc(sizeof(struct Node));
     if (psNewNode == NULL) return 0;
     assert(oSymTable != NULL);
-    if(SymTable_contains(oSymTable, pcKey)) return 0;
+    if(SymTable_contains(oSymTable, pcKey)) {
+        free(psNewNode);
+        return 0;
+    }
     
-    psNewNode->key = (const char*)malloc(strlen(pcKey) + 1);
+    psNewNode->key = (const char*)malloc(strlen(pcKey)+ 1);
     if (psNewNode->key == NULL) return 0;
     strcpy((char*)psNewNode->key, pcKey);
     psNewNode->value = (void*)pvValue;    
