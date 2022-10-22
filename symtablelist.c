@@ -35,6 +35,7 @@ void SymTable_free(SymTable_T oSymTable) {
         free(tracer);
         tracer = temp;
     }
+    free(oSymTable->first);
     free(oSymTable);
 }
 
