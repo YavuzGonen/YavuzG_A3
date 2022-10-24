@@ -427,7 +427,6 @@ static void testMap(void)
    SymTable_map(oSymTable, printBindingSimple, NULL);
 
    SymTable_free(oSymTable);
-   printf("i freed");
 }
 
 /*--------------------------------------------------------------------*/
