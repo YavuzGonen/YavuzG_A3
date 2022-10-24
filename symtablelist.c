@@ -57,7 +57,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
 
     strcpy((char*)psNewNode->key, pcKey);
     psNewNode->value = (void*)pvValue;    
-    
+
     psNewNode->next = oSymTable->first;
     oSymTable->first = psNewNode;
     oSymTable->length++;
@@ -68,6 +68,7 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey, const void *pvVa
     void *oldValue;
     struct Node* tracer;
     assert(oSymTable != NULL); 
+    assert(pcKey != NULL);
     tracer = oSymTable->first;
 
     while(tracer != NULL) {
@@ -84,6 +85,7 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey, const void *pvVa
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
     struct Node* tracer; 
     assert(oSymTable != NULL);
+    assert(pcKey != NULL);
     tracer = oSymTable->first; 
     while(tracer != NULL) {
         if(!strcmp(tracer->key,pcKey)) return 1;
@@ -95,6 +97,7 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
     struct Node* tracer = oSymTable->first; 
     assert(oSymTable != NULL);
+    assert(pcKey != NULL);
     while(tracer != NULL) {
         if(!strcmp(tracer->key,pcKey)) return tracer->value;
         tracer = tracer->next;
@@ -107,6 +110,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     struct Node* tracer1; 
     struct Node* tracer2;
     assert(oSymTable != NULL);
+    assert(pcKey != NULL);
     tracer1 = oSymTable->first; 
     tracer2 = tracer1->next;
 
