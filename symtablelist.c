@@ -31,7 +31,7 @@ void SymTable_free(SymTable_T oSymTable) {
     tracer = oSymTable->first;
     while(tracer != NULL) {
         temp = tracer->next;
-        free((void*)tracer->key);
+        free(tracer->key);
         free(tracer);
         tracer = temp;
     }
