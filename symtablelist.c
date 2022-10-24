@@ -52,7 +52,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     psNewNode = (struct Node*)malloc(sizeof(struct Node));
     if (psNewNode == NULL) return 0;
     
-    psNewNode->key = (const char*)malloc(strlen(pcKey)+ 1);
+    psNewNode->key = (char*)malloc(strlen(pcKey)+ 1);
     if (psNewNode->key == NULL) return 0;
 
     strcpy((char*)psNewNode->key, pcKey);
