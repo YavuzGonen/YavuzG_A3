@@ -447,7 +447,7 @@ static void testEmptyTable(void)
    
    oSymTable = SymTable_new();
    ASSURE(oSymTable != NULL);
-
+   printf("hi");
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 0);
 
