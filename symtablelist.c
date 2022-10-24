@@ -17,7 +17,7 @@ struct SymTable {
 };
 
 SymTable_T SymTable_new(void) {
-    SymTable_T p = calloc(1, sizeof(SymTable_T));
+    SymTable_T p = (SymTable_T)malloc(sizeof(SymTable_T));
     if(p == NULL) return NULL;
     p->length = 0;
     p->first = NULL;
@@ -35,7 +35,6 @@ void SymTable_free(SymTable_T oSymTable) {
         free(tracer);
         tracer = temp;
     }
-    free(tracer);
     free(oSymTable);
 }
 
@@ -45,23 +44,20 @@ size_t SymTable_getLength(SymTable_T oSymTable) {
 }
 
 int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
-    struct Node *psNewNode = (struct Node*)malloc(sizeof(struct Node));
-    if (psNewNode == NULL) return 0;
+    struct Node *psNewNode;
     assert(oSymTable != NULL);
-    if(SymTable_contains(oSymTable, pcKey)) {
-        free(psNewNode);
-        return 0;
-    }
+    assert(pcKey != NULL);
+    if(SymTable_contains(oSymTable, pcKey)) return 0;
+
+    psNewNode = (struct Node*)malloc(sizeof(struct Node));
+    if (psNewNode == NULL) return 0;
     
     psNewNode->key = (const char*)malloc(strlen(pcKey)+ 1);
-    if (psNewNode->key == NULL) {
-        free(psNewNode);
-        return 0;
-    }
+    if (psNewNode->key == NULL) return 0;
 
     strcpy((char*)psNewNode->key, pcKey);
     psNewNode->value = (void*)pvValue;    
-
+    
     psNewNode->next = oSymTable->first;
     oSymTable->first = psNewNode;
     oSymTable->length++;
