@@ -26,7 +26,6 @@ SymTable_T SymTable_new(void) {
 
 void SymTable_free(SymTable_T oSymTable) {
     struct Node* tracer;
-    struct Node* temp;
     assert(oSymTable != NULL);
     for(tracer = oSymTable->first; tracer != NULL; tracer = tracer->next) {
         free(tracer->key);
