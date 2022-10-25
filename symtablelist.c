@@ -1,7 +1,5 @@
-#include "stdio.h"
 #include "symtable.h"
 #include "string.h"
-#include "stddef.h"
 #include "stdlib.h"
 #include "assert.h"
 
@@ -26,8 +24,10 @@ SymTable_T SymTable_new(void) {
 
 void SymTable_free(SymTable_T oSymTable) {
     struct Node* tracer;
+    struct Node* temp;
     assert(oSymTable != NULL);
-    for(tracer = oSymTable->first; tracer != NULL; tracer = tracer->next) {
+    for(tracer = oSymTable->first; tracer != NULL; tracer = temp) {
+        temp = tracer->next;
         free(tracer->key);
         free(tracer);
     }
