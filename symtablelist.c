@@ -104,7 +104,7 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
 }
 
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
-    void *output = NULL;
+    void *output;
     struct Node* tracer1; 
     struct Node* tracer2;
     assert(oSymTable != NULL);
@@ -112,7 +112,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     tracer1 = oSymTable->first; 
     tracer2 = tracer1->next;
 
-    if(!SymTable_contains(oSymTable, pcKey)) return output;
+    if(!SymTable_contains(oSymTable, pcKey)) return NULL;
 
     if(!strcmp(tracer1->key,pcKey)) {
         output = tracer1->value;
@@ -132,8 +132,8 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
             oSymTable->length--;
             return output;
         }
+        tracer1 = tracer2;
         tracer2 = tracer2->next;
-        tracer1 = tracer1->next;
     }
 
     return NULL;
@@ -141,8 +141,9 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
 
 void SymTable_map(SymTable_T oSymTable, void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra), 
 const void *pvExtra) {
-    struct Node* tracer = oSymTable->first;
+    struct Node* tracer;
     assert(oSymTable != NULL);
+    tracer = oSymTable->first;
     while(tracer != NULL) {
         pfApply(tracer->key, tracer->value, (void*)pvExtra);
         tracer = tracer->next;
