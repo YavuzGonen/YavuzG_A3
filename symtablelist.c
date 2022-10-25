@@ -63,12 +63,12 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
 void *SymTable_replace(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     void *oldValue;
     struct Node* tracer;
+    struct Node* temp;
     assert(oSymTable != NULL); 
     assert(pcKey != NULL);
 
-    if(!SymTable_contains(oSymTable, pcKey)) return NULL;
-
-    for(tracer = oSymTable->first; tracer != NULL; tracer = tracer->next) {
+    for(tracer = oSymTable->first; tracer != NULL; tracer = temp) {
+        temp = tracer->next;
         if(!strcmp(tracer->key,pcKey)) {
             oldValue = tracer->value;
             tracer->value = (void*)pvValue;
@@ -91,9 +91,11 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
 }
 
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
-    struct Node* tracer = oSymTable->first; 
+    struct Node* tracer; 
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
+    tracer = oSymTable->first; 
+
     while(tracer != NULL) {
         if(!strcmp(tracer->key,pcKey)) return tracer->value;
         tracer = tracer->next;
