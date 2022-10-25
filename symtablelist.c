@@ -28,12 +28,9 @@ void SymTable_free(SymTable_T oSymTable) {
     struct Node* tracer;
     struct Node* temp;
     assert(oSymTable != NULL);
-    tracer = oSymTable->first;
-    while(tracer != NULL) {
-        temp = tracer->next;
+    for(tracer = oSymTable->first; tracer != NULL; tracer = tracer->next) {
         free(tracer->key);
         free(tracer);
-        tracer = temp;
     }
     free(oSymTable);
 }
@@ -69,15 +66,15 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey, const void *pvVa
     struct Node* tracer;
     assert(oSymTable != NULL); 
     assert(pcKey != NULL);
-    tracer = oSymTable->first;
 
-    while(tracer != NULL) {
+    if(!SymTable_contains(oSymTable, pcKey)) return NULL;
+
+    for(tracer = oSymTable->first; tracer != NULL; tracer = tracer->next) {
         if(!strcmp(tracer->key,pcKey)) {
             oldValue = tracer->value;
             tracer->value = (void*)pvValue;
             return oldValue;
         }
-        tracer = tracer->next;
     }
     return NULL;
 }
