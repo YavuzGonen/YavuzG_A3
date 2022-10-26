@@ -15,7 +15,7 @@ struct SymTable {
 };
 
 SymTable_T SymTable_new(void) {
-    SymTable_T p = (SymTable_T)malloc(sizeof(SymTable_T));
+    SymTable_T p = (SymTable_T)malloc(sizeof(struct SymTable));
     if(p == NULL) return NULL;
     p->length = 0;
     p->first = NULL;
