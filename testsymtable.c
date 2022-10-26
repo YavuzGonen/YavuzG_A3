@@ -85,349 +85,349 @@ static void printBindingSimple(const char *pcKey, void *pvValue,
 
 /* Test the most basic SymTable functions. */
 
-// static void testBasics(void)
-// {
-//    SymTable_T oSymTable;
-//    char acJeter[] = "Jeter";
-//    char acMantle[] = "Mantle";
-//    char acGehrig[] = "Gehrig";
-//    char acRuth[] = "Ruth";
-//    char acShortstop[] = "Shortstop";
-//    char acCenterField[] = "Center Field";
-//    char acFirstBase[] = "First Base";
-//    char acRightField[] = "Right Field";
+static void testBasics(void)
+{
+   SymTable_T oSymTable;
+   char acJeter[] = "Jeter";
+   char acMantle[] = "Mantle";
+   char acGehrig[] = "Gehrig";
+   char acRuth[] = "Ruth";
+   char acShortstop[] = "Shortstop";
+   char acCenterField[] = "Center Field";
+   char acFirstBase[] = "First Base";
+   char acRightField[] = "Right Field";
 
-//    char acBrown[] = "Brown";
+   char acBrown[] = "Brown";
    
-//    char *pcValue;
-//    int iSuccessful;
-//    int iFound;
-//    size_t uLength;
+   char *pcValue;
+   int iSuccessful;
+   int iFound;
+   size_t uLength;
 
-//    printf("------------------------------------------------------\n");
-//    printf("Testing the most basic SymTable functions.\n");
-//    printf("No output should appear here:\n");
-//    fflush(stdout);
+   printf("------------------------------------------------------\n");
+   printf("Testing the most basic SymTable functions.\n");
+   printf("No output should appear here:\n");
+   fflush(stdout);
 
-//    /* Test SymTable_new(). */
+   /* Test SymTable_new(). */
 
-//    oSymTable = SymTable_new();
-//    ASSURE(oSymTable != NULL);
+   oSymTable = SymTable_new();
+   ASSURE(oSymTable != NULL);
 
-//    /* Test SymTable_put() and SymTable_getLength(). */
+   /* Test SymTable_put() and SymTable_getLength(). */
 
-//    iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
-//    ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
+   ASSURE(iSuccessful);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 1);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 1);
 
-//    iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
-//    ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
+   ASSURE(iSuccessful);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 2);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 2);
 
-//    iSuccessful = SymTable_put(oSymTable, acGehrig, acFirstBase);
-//    ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTable, acGehrig, acFirstBase);
+   ASSURE(iSuccessful);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 3);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 3);
 
-//    iSuccessful = SymTable_put(oSymTable, acRuth, acRightField);
-//    ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTable, acRuth, acRightField);
+   ASSURE(iSuccessful);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 4);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 4);
 
-//    /* Try to insert duplicate to first key entered */
-//    iSuccessful = SymTable_put(oSymTable, acJeter, acCenterField);
-//    ASSURE(! iSuccessful);
+   /* Try to insert duplicate to first key entered */
+   iSuccessful = SymTable_put(oSymTable, acJeter, acCenterField);
+   ASSURE(! iSuccessful);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 4);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 4);
 
-//    /* Try to insert duplicate to last key entered */
-//    iSuccessful = SymTable_put(oSymTable, acRuth, acCenterField);
-//    ASSURE(! iSuccessful);
+   /* Try to insert duplicate to last key entered */
+   iSuccessful = SymTable_put(oSymTable, acRuth, acCenterField);
+   ASSURE(! iSuccessful);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 4);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 4);
 
    
-//    /* Test SymTable_contains(). */
+   /* Test SymTable_contains(). */
 
-//    iFound = SymTable_contains(oSymTable, acJeter);
-//    ASSURE(iFound);
+   iFound = SymTable_contains(oSymTable, acJeter);
+   ASSURE(iFound);
 
-//    iFound = SymTable_contains(oSymTable, acMantle);
-//    ASSURE(iFound);
+   iFound = SymTable_contains(oSymTable, acMantle);
+   ASSURE(iFound);
 
-//    iFound = SymTable_contains(oSymTable, acGehrig);
-//    ASSURE(iFound);
+   iFound = SymTable_contains(oSymTable, acGehrig);
+   ASSURE(iFound);
 
-//    iFound = SymTable_contains(oSymTable, acRuth);
-//    ASSURE(iFound);
+   iFound = SymTable_contains(oSymTable, acRuth);
+   ASSURE(iFound);
 
-//    iFound = SymTable_contains(oSymTable, "Clemens");
-//    ASSURE(! iFound);
+   iFound = SymTable_contains(oSymTable, "Clemens");
+   ASSURE(! iFound);
 
-//    iFound = SymTable_contains(oSymTable, "Maris");
-//    ASSURE(! iFound);
+   iFound = SymTable_contains(oSymTable, "Maris");
+   ASSURE(! iFound);
 
-//    /* Test SymTable_get(). */
+   /* Test SymTable_get(). */
 
-//    pcValue = (char*)SymTable_get(oSymTable, acJeter);
-//    ASSURE(pcValue == acShortstop);
+   pcValue = (char*)SymTable_get(oSymTable, acJeter);
+   ASSURE(pcValue == acShortstop);
 
-//    pcValue = (char*)SymTable_get(oSymTable, acMantle);
-//    ASSURE(pcValue == acCenterField);
+   pcValue = (char*)SymTable_get(oSymTable, acMantle);
+   ASSURE(pcValue == acCenterField);
 
-//    pcValue = (char*)SymTable_get(oSymTable, acGehrig);
-//    ASSURE(pcValue == acFirstBase);
+   pcValue = (char*)SymTable_get(oSymTable, acGehrig);
+   ASSURE(pcValue == acFirstBase);
 
-//    pcValue = (char*)SymTable_get(oSymTable, acRuth);
-//    ASSURE(pcValue == acRightField);
+   pcValue = (char*)SymTable_get(oSymTable, acRuth);
+   ASSURE(pcValue == acRightField);
 
-//    pcValue = (char*)SymTable_get(oSymTable, "Clemens");
-//    ASSURE(pcValue == NULL);
+   pcValue = (char*)SymTable_get(oSymTable, "Clemens");
+   ASSURE(pcValue == NULL);
 
-//    pcValue = (char*)SymTable_get(oSymTable, "Maris");
-//    ASSURE(pcValue == NULL);
+   pcValue = (char*)SymTable_get(oSymTable, "Maris");
+   ASSURE(pcValue == NULL);
    
-//    /* Test SymTable_replace(). */
+   /* Test SymTable_replace(). */
 
-//    pcValue = (char*)
-//       SymTable_replace(oSymTable, acMantle, acFirstBase);
-//    ASSURE(pcValue == acCenterField);
+   pcValue = (char*)
+      SymTable_replace(oSymTable, acMantle, acFirstBase);
+   ASSURE(pcValue == acCenterField);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 4);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 4);
 
-//    pcValue = (char*)SymTable_get(oSymTable, acMantle);
-//    ASSURE(pcValue == acFirstBase);
+   pcValue = (char*)SymTable_get(oSymTable, acMantle);
+   ASSURE(pcValue == acFirstBase);
 
-//    pcValue = (char*)
-//       SymTable_replace(oSymTable, "Clemens", acRightField);
-//    ASSURE(pcValue == NULL);
+   pcValue = (char*)
+      SymTable_replace(oSymTable, "Clemens", acRightField);
+   ASSURE(pcValue == NULL);
 
-//    pcValue = (char*)SymTable_replace(oSymTable, "Maris", acRightField);
-//    ASSURE(pcValue == NULL);
+   pcValue = (char*)SymTable_replace(oSymTable, "Maris", acRightField);
+   ASSURE(pcValue == NULL);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 4);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 4);
 
 
-//    /* Insert key with NULL value */
-//    iSuccessful = SymTable_put(oSymTable, acBrown, NULL);
-//    ASSURE(iSuccessful);
+   /* Insert key with NULL value */
+   iSuccessful = SymTable_put(oSymTable, acBrown, NULL);
+   ASSURE(iSuccessful);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 5);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 5);
 
-//    /* Try to insert duplicate of key that had NULL value */
-//    iSuccessful = SymTable_put(oSymTable, acBrown, acShortstop);
-//    ASSURE(! iSuccessful);
+   /* Try to insert duplicate of key that had NULL value */
+   iSuccessful = SymTable_put(oSymTable, acBrown, acShortstop);
+   ASSURE(! iSuccessful);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 5);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 5);
  
 
-//    /* Test SymTable_free(). */
+   /* Test SymTable_free(). */
 
-//    SymTable_free(oSymTable);
-// }
+   SymTable_free(oSymTable);
+}
 
-// /*--------------------------------------------------------------------*/
+/*--------------------------------------------------------------------*/
 
-// /* Test handling of key comparisons. */
+/* Test handling of key comparisons. */
 
-// static void testKeyComparison(void)
-// {
-//    SymTable_T oSymTable;
-//    char acJeter[] = "Jeter";
-//    char acJeter2[] = "Jeter";
-//    char acShortstop[] = "Shortstop";
-//    char *pcValue;
-//    int iSuccessful;
+static void testKeyComparison(void)
+{
+   SymTable_T oSymTable;
+   char acJeter[] = "Jeter";
+   char acJeter2[] = "Jeter";
+   char acShortstop[] = "Shortstop";
+   char *pcValue;
+   int iSuccessful;
 
-//    printf("------------------------------------------------------\n");
-//    printf("Testing key comparison.\n");
-//    printf("No output should appear here:\n");
-//    fflush(stdout);
+   printf("------------------------------------------------------\n");
+   printf("Testing key comparison.\n");
+   printf("No output should appear here:\n");
+   fflush(stdout);
 
-//    oSymTable = SymTable_new();
-//    ASSURE(oSymTable != NULL);
-//    iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
-//    ASSURE(iSuccessful);
-//    iSuccessful = SymTable_put(oSymTable, acJeter2, acShortstop);
-//    ASSURE(! iSuccessful);
-//    pcValue = (char*)SymTable_get(oSymTable, acJeter2);
-//    ASSURE(pcValue == acShortstop);
-//    SymTable_free(oSymTable);
-// }
+   oSymTable = SymTable_new();
+   ASSURE(oSymTable != NULL);
+   iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
+   ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTable, acJeter2, acShortstop);
+   ASSURE(! iSuccessful);
+   pcValue = (char*)SymTable_get(oSymTable, acJeter2);
+   ASSURE(pcValue == acShortstop);
+   SymTable_free(oSymTable);
+}
 
-// /*--------------------------------------------------------------------*/
+/*--------------------------------------------------------------------*/
 
-// /* Test handling of key ownership. */
+/* Test handling of key ownership. */
 
-// static void testKeyOwnership(void)
-// {
-//    enum {MAX_KEY_LENGTH = 10};
+static void testKeyOwnership(void)
+{
+   enum {MAX_KEY_LENGTH = 10};
 
-//    SymTable_T oSymTable;
-//    char acKey[MAX_KEY_LENGTH];
-//    char *pcValue;
-//    int iSuccessful;
-//    char acCenterField[] = "CenterField";
+   SymTable_T oSymTable;
+   char acKey[MAX_KEY_LENGTH];
+   char *pcValue;
+   int iSuccessful;
+   char acCenterField[] = "CenterField";
 
-//    printf("------------------------------------------------------\n");
-//    printf("Testing key ownership.\n");
-//    printf("No output should appear here:\n");
-//    fflush(stdout);
+   printf("------------------------------------------------------\n");
+   printf("Testing key ownership.\n");
+   printf("No output should appear here:\n");
+   fflush(stdout);
 
-//    oSymTable = SymTable_new();
-//    ASSURE(oSymTable != NULL);
-//    strcpy(acKey, "Mantle");
-//    iSuccessful = SymTable_put(oSymTable, acKey, acCenterField);
-//    ASSURE(iSuccessful);
-//    strcpy(acKey, "xxx");
-//    pcValue = (char*)SymTable_get(oSymTable, "Mantle");
-//    ASSURE(pcValue == acCenterField);
+   oSymTable = SymTable_new();
+   ASSURE(oSymTable != NULL);
+   strcpy(acKey, "Mantle");
+   iSuccessful = SymTable_put(oSymTable, acKey, acCenterField);
+   ASSURE(iSuccessful);
+   strcpy(acKey, "xxx");
+   pcValue = (char*)SymTable_get(oSymTable, "Mantle");
+   ASSURE(pcValue == acCenterField);
 
-//    SymTable_free(oSymTable);
-// }
+   SymTable_free(oSymTable);
+}
 
-// /*--------------------------------------------------------------------*/
+/*--------------------------------------------------------------------*/
 
-// /* Test the SymTable_remove() function. */
+/* Test the SymTable_remove() function. */
 
-// static void testRemove(void)
-// {
-//    SymTable_T oSymTable;
-//    char acJeter[] = "Jeter";
-//    char acMantle[] = "Mantle";
-//    char acGehrig[] = "Gehrig";
-//    char acRuth[] = "Ruth";
-//    char acShortstop[] = "Shortstop";
-//    char acCenterField[] = "Center Field";
-//    char acFirstBase[] = "First Base";
-//    char acRightField[] = "Right Field";
+static void testRemove(void)
+{
+   SymTable_T oSymTable;
+   char acJeter[] = "Jeter";
+   char acMantle[] = "Mantle";
+   char acGehrig[] = "Gehrig";
+   char acRuth[] = "Ruth";
+   char acShortstop[] = "Shortstop";
+   char acCenterField[] = "Center Field";
+   char acFirstBase[] = "First Base";
+   char acRightField[] = "Right Field";
 
-//    char *pcValue;
-//    int iFound;
-//    size_t uLength;
-//    int iSuccessful;
+   char *pcValue;
+   int iFound;
+   size_t uLength;
+   int iSuccessful;
 
-//    printf("------------------------------------------------------\n");
-//    printf("Testing the SymTable_remove() function.\n");
-//    printf("No output should appear here:\n");
-//    fflush(stdout);
+   printf("------------------------------------------------------\n");
+   printf("Testing the SymTable_remove() function.\n");
+   printf("No output should appear here:\n");
+   fflush(stdout);
 
-//    oSymTable = SymTable_new();
-//    ASSURE(oSymTable != NULL);
+   oSymTable = SymTable_new();
+   ASSURE(oSymTable != NULL);
 
-//    iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
-//    ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
+   ASSURE(iSuccessful);
 
-//    iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
-//    ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
+   ASSURE(iSuccessful);
 
-//    iSuccessful = SymTable_put(oSymTable, acGehrig, acFirstBase);
-//    ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTable, acGehrig, acFirstBase);
+   ASSURE(iSuccessful);
 
-//    iSuccessful = SymTable_put(oSymTable, acRuth, acRightField);
-//    ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTable, acRuth, acRightField);
+   ASSURE(iSuccessful);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 4);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 4);
 
-//    pcValue = (char*)SymTable_remove(oSymTable, acJeter);
-//    ASSURE(pcValue == acShortstop);
+   pcValue = (char*)SymTable_remove(oSymTable, acJeter);
+   ASSURE(pcValue == acShortstop);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 3);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 3);
 
-//    iFound = SymTable_contains(oSymTable, acJeter);
-//    ASSURE(! iFound);
+   iFound = SymTable_contains(oSymTable, acJeter);
+   ASSURE(! iFound);
 
-//    pcValue = (char*)SymTable_remove(oSymTable, acRuth);
-//    ASSURE(pcValue == acRightField);
+   pcValue = (char*)SymTable_remove(oSymTable, acRuth);
+   ASSURE(pcValue == acRightField);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 2);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 2);
 
-//    iFound = SymTable_contains(oSymTable, acRuth);
-//    ASSURE(! iFound);
+   iFound = SymTable_contains(oSymTable, acRuth);
+   ASSURE(! iFound);
 
-//    pcValue = (char*)SymTable_remove(oSymTable, "Clemens");
-//    ASSURE(pcValue == NULL);
+   pcValue = (char*)SymTable_remove(oSymTable, "Clemens");
+   ASSURE(pcValue == NULL);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 2);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 2);
 
-//    iFound = SymTable_contains(oSymTable, "Clemens");
-//    ASSURE(! iFound);
+   iFound = SymTable_contains(oSymTable, "Clemens");
+   ASSURE(! iFound);
 
-//    pcValue = (char*)SymTable_remove(oSymTable, acRuth);
-//    ASSURE(pcValue == NULL);
+   pcValue = (char*)SymTable_remove(oSymTable, acRuth);
+   ASSURE(pcValue == NULL);
 
-//    uLength = SymTable_getLength(oSymTable);
-//    ASSURE(uLength == 2);
+   uLength = SymTable_getLength(oSymTable);
+   ASSURE(uLength == 2);
 
-//    iFound = SymTable_contains(oSymTable, acRuth);
-//    ASSURE(! iFound);
+   iFound = SymTable_contains(oSymTable, acRuth);
+   ASSURE(! iFound);
 
-//    SymTable_free(oSymTable);
-// }
+   SymTable_free(oSymTable);
+}
 
-// /*--------------------------------------------------------------------*/
+/*--------------------------------------------------------------------*/
 
-// /* Test the SymTable_map() function. */
+/* Test the SymTable_map() function. */
 
-// static void testMap(void)
-// {
-//    SymTable_T oSymTable;
-//    char acJeter[] = "Jeter";
-//    char acMantle[] = "Mantle";
-//    char acGehrig[] = "Gehrig";
-//    char acRuth[] = "Ruth";
-//    char acShortstop[] = "Shortstop";
-//    char acCenterField[] = "Center Field";
-//    char acFirstBase[] = "First Base";
-//    char acRightField[] = "Right Field";
+static void testMap(void)
+{
+   SymTable_T oSymTable;
+   char acJeter[] = "Jeter";
+   char acMantle[] = "Mantle";
+   char acGehrig[] = "Gehrig";
+   char acRuth[] = "Ruth";
+   char acShortstop[] = "Shortstop";
+   char acCenterField[] = "Center Field";
+   char acFirstBase[] = "First Base";
+   char acRightField[] = "Right Field";
 
-//    int iSuccessful;
+   int iSuccessful;
 
-//    printf("------------------------------------------------------\n");
-//    printf("Testing the SymTable_map() function.\n");
-//    fflush(stdout);
+   printf("------------------------------------------------------\n");
+   printf("Testing the SymTable_map() function.\n");
+   fflush(stdout);
 
-//    oSymTable = SymTable_new();
-//    ASSURE(oSymTable != NULL);
+   oSymTable = SymTable_new();
+   ASSURE(oSymTable != NULL);
 
-//    iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
-//    ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTable, acJeter, acShortstop);
+   ASSURE(iSuccessful);
 
-//    iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
-//    ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTable, acMantle, acCenterField);
+   ASSURE(iSuccessful);
 
-//    iSuccessful = SymTable_put(oSymTable, acGehrig, acFirstBase);
-//    ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTable, acGehrig, acFirstBase);
+   ASSURE(iSuccessful);
 
-//    iSuccessful = SymTable_put(oSymTable, acRuth, acRightField);
-//    ASSURE(iSuccessful);
+   iSuccessful = SymTable_put(oSymTable, acRuth, acRightField);
+   ASSURE(iSuccessful);
 
-//    printf("Four players and their positions should appear here:\n");
-//    fflush(stdout);
-//    SymTable_map(oSymTable, printBinding, "%s\t%s\n");
+   printf("Four players and their positions should appear here:\n");
+   fflush(stdout);
+   SymTable_map(oSymTable, printBinding, "%s\t%s\n");
 
-//    printf("Four players and their positions should appear here:\n");
-//    fflush(stdout);
-//    SymTable_map(oSymTable, printBindingSimple, NULL);
+   printf("Four players and their positions should appear here:\n");
+   fflush(stdout);
+   SymTable_map(oSymTable, printBindingSimple, NULL);
 
-//    SymTable_free(oSymTable);
-// }
+   SymTable_free(oSymTable);
+}
 
 /*--------------------------------------------------------------------*/
 
@@ -949,11 +949,11 @@ int main(int argc, char *argv[])
    setCpuTimeLimit();
 #endif
 
-   // testBasics();
-   // testKeyComparison();
-   // testKeyOwnership();
-   // testRemove();
-   // testMap();
+   testBasics();
+   testKeyComparison();
+   testKeyOwnership();
+   testRemove();
+   testMap();
    testEmptyTable();
    testEmptyKey();
    testNullValue();
