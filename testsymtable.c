@@ -443,7 +443,7 @@ static void testEmptyTable(void)
    printf("------------------------------------------------------\n");
    printf("Testing an empty SymTable object.\n");
    printf("No output should appear here:\n");
-   /* fflush(stdout); */
+   fflush(stdout);
    
    oSymTable = SymTable_new();
    ASSURE(oSymTable != NULL);
