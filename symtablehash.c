@@ -82,6 +82,7 @@ static int expand(SymTable_T oSymTable) {
         while(oldTracer != NULL) {
             newHash = SymTable_hash(oldTracer->key,newMax);
             newBuckets[newHash] = oldTracer;
+            oldTracer = oldTracer->next;
         }
     }
 
