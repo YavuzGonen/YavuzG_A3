@@ -197,6 +197,15 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     if(tracer1 == NULL) return NULL;
     tracer2 = tracer1->next;
 
+    if(!strcmp(tracer1->key,pcKey)) {
+        output = tracer2->value;
+        tracer1->next = tracer2->next;
+        free(tracer1->key);
+        free(tracer1);
+        oSymTable->length--;
+        return output;
+    }
+
     while(tracer2 != NULL) {
         if(!strcmp(tracer2->key,pcKey)) {
             output = tracer2->value;
