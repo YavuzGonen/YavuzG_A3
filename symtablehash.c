@@ -225,6 +225,7 @@ void SymTable_map(SymTable_T oSymTable, void (*pfApply)(const char *pcKey, void 
 const void *pvExtra) {
     size_t i;
     struct Binding* bucketTracer;
+    assert(oSymTable != NULL);
     for(i = 0; i < oSymTable->max; i++) {
         bucketTracer = oSymTable->buckets[i];
         while(bucketTracer != NULL) {
