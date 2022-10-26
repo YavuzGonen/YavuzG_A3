@@ -74,7 +74,7 @@ static int expand(SymTable_T oSymTable) {
             break;
         }
     }
-    newBuckets = (struct Binding**)calloc(1, sizeof(struct Binding*) * newMax);
+    newBuckets = (struct Binding**)calloc(newMax, sizeof(struct Binding*));
     if (newBuckets == NULL) return 0;
     
     for(i=0; i<oSymTable->max; i++) {
