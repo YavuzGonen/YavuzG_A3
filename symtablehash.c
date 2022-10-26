@@ -215,8 +215,8 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
             oSymTable->length--;
             return output;
         }
+        tracer1 = tracer2;
         tracer2 = tracer2->next;
-        tracer1 = tracer1->next;
     }
     return NULL;
 }
