@@ -120,7 +120,10 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     strcpy((char*)newEntry->key, pcKey);
     newEntry->value = (void*)pvValue;
 
-    if(oSymTable->buckets[hash] == NULL) oSymTable->buckets[hash] = newEntry;
+    if(oSymTable->buckets[hash] == NULL) {
+        newEntry->next = NULL;
+        oSymTable->buckets[hash] = newEntry;
+    }
     else {
         newEntry->next = oSymTable->buckets[hash];
         oSymTable->buckets[hash] = newEntry;
@@ -174,8 +177,8 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
     assert(pcKey != NULL);
     hash = SymTable_hash(pcKey, oSymTable->max);
     tracer = oSymTable->buckets[hash];
-
     if(tracer == NULL) return NULL;
+    
     while(tracer != NULL) {
         if(!strcmp(tracer->key,pcKey)) return tracer->value;
         tracer = tracer->next;
