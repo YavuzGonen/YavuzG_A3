@@ -145,7 +145,7 @@ const void *pvExtra) {
     assert(oSymTable != NULL);
     tracer = oSymTable->first;
     while(tracer != NULL) {
-        pfApply(tracer->key, tracer->value, (void*)pvExtra);
+        pfApply(tracer->key, (void*)tracer->value, (void*)pvExtra);
         tracer = tracer->next;
     }
 }
