@@ -949,11 +949,11 @@ int main(int argc, char *argv[])
    setCpuTimeLimit();
 #endif
 
-   testBasics();
-   testKeyComparison();
-   testKeyOwnership();
-   testRemove();
-   testMap();
+   // testBasics();
+   // testKeyComparison();
+   // testKeyOwnership();
+   // testRemove();
+   // testMap();
    testEmptyTable();
    testEmptyKey();
    testNullValue();
