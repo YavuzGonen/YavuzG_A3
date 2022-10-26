@@ -444,14 +444,13 @@ static void testEmptyTable(void)
    printf("Testing an empty SymTable object.\n");
    printf("No output should appear here:\n");
    fflush(stdout);
-   printf("yo1");
+   
    oSymTable = SymTable_new();
-   printf("yo2");
    ASSURE(oSymTable != NULL);
    
    uLength = SymTable_getLength(oSymTable);
    ASSURE(uLength == 0);
-   printf("yo3");
+
    iFound = SymTable_contains(oSymTable, "Jeter");
    ASSURE(! iFound);
 
