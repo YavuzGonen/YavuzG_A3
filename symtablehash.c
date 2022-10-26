@@ -62,6 +62,7 @@ void SymTable_free(SymTable_T oSymTable) {
 
 static int expand(SymTable_T oSymTable) {
     struct Binding **newBuckets;
+    struct Binding **oldBuckets;
     struct Binding *oldTracer;
     size_t newMax;
     size_t newHash;
@@ -74,21 +75,21 @@ static int expand(SymTable_T oSymTable) {
             break;
         }
     }
+
+    oldBuckets = oSymTable->buckets;
     newBuckets = (struct Binding**)calloc(newMax, sizeof(struct Binding*));
     if (newBuckets == NULL) return 0;
-    
-    for(i=0; i<oSymTable->max; i++) {
-        oldTracer = oSymTable->buckets[i];
-        while(oldTracer != NULL) {
-            newHash = SymTable_hash(oldTracer->key,newMax);
+    oSymTable->buckets = newBuckets;
+
+    for(i=0; i < oSymTable->max; i++) {
+        oldTracer = oldBuckets[i];
+        if(oldTracer != NULL) {
+            newHash = SymTable_hash(oldTracer->key, newMax);
             newBuckets[newHash] = oldTracer;
-            oldTracer = oldTracer->next;
         }
     }
-
-    free(oSymTable->buckets);
     oSymTable->max = newMax;
-    oSymTable->buckets = newBuckets;
+    free(oldBuckets);
     return 1;
 }
 
