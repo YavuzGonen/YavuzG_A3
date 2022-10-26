@@ -198,8 +198,8 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     tracer2 = tracer1->next;
 
     if(!strcmp(tracer1->key,pcKey)) {
-        output = tracer2->value;
-        tracer1->next = tracer2->next;
+        output = tracer1->value;
+        oSymTable->buckets[hash] = tracer2;
         free(tracer1->key);
         free(tracer1);
         oSymTable->length--;
