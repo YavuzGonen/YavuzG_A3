@@ -109,7 +109,8 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     struct Node* tracer2;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
-    tracer1 = oSymTable->first; 
+    tracer1 = oSymTable->first;
+    if(tracer1 == NULL) return NULL; 
     tracer2 = tracer1->next;
 
     if(!SymTable_contains(oSymTable, pcKey)) return NULL;
