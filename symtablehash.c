@@ -229,7 +229,7 @@ const void *pvExtra) {
     for(i = 0; i < oSymTable->max; i++) {
         bucketTracer = oSymTable->buckets[i];
         while(bucketTracer != NULL) {
-            pfApply(bucketTracer->key, (void*)bucketTracer->value, (void*)pvExtra);
+            pfApply((const char*)bucketTracer->key, (void*)bucketTracer->value, (void*)pvExtra);
             bucketTracer = bucketTracer->next;
         }
     }
