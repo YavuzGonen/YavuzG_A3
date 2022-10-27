@@ -29,37 +29,6 @@ struct SymTable {
     size_t max;
 };
 
-SymTable_T SymTable_new(void) {
-    SymTable_T newHashTable = (SymTable_T)calloc(1, sizeof(struct SymTable));
-    if(newHashTable == NULL) return NULL;
-    
-    newHashTable->length = 0;
-    newHashTable->max = auBucketCounts[0];
-    
-    newHashTable->buckets = (struct Binding**)calloc(auBucketCounts[0], sizeof(struct Binding*));
-    if(newHashTable->buckets == NULL) return NULL;
-    return newHashTable;
-}
-
-void SymTable_free(SymTable_T oSymTable) {
-    size_t i;
-    struct Binding* tracer;
-    struct Binding* temp;
-    assert(oSymTable != NULL);
-    
-    for(i = 0; i < oSymTable->max; i++) {
-        tracer = oSymTable->buckets[i];
-        while(tracer != NULL) {
-            temp = tracer->next;
-            free(tracer->key);
-            free(tracer);
-            tracer = temp;
-        }
-    }
-    free(oSymTable->buckets);
-    free(oSymTable);
-}
-
 static int expand(SymTable_T oSymTable) {
     struct Binding **newBuckets;
     struct Binding **oldBuckets;
@@ -91,6 +60,37 @@ static int expand(SymTable_T oSymTable) {
     oSymTable->max = newMax;
     free(oldBuckets);
     return 1;
+}
+
+SymTable_T SymTable_new(void) {
+    SymTable_T newHashTable = (SymTable_T)calloc(1, sizeof(struct SymTable));
+    if(newHashTable == NULL) return NULL;
+    
+    newHashTable->length = 0;
+    newHashTable->max = auBucketCounts[0];
+    
+    newHashTable->buckets = (struct Binding**)calloc(auBucketCounts[0], sizeof(struct Binding*));
+    if(newHashTable->buckets == NULL) return NULL;
+    return newHashTable;
+}
+
+void SymTable_free(SymTable_T oSymTable) {
+    size_t i;
+    struct Binding* tracer;
+    struct Binding* temp;
+    assert(oSymTable != NULL);
+    
+    for(i = 0; i < oSymTable->max; i++) {
+        tracer = oSymTable->buckets[i];
+        while(tracer != NULL) {
+            temp = tracer->next;
+            free(tracer->key);
+            free(tracer);
+            tracer = temp;
+        }
+    }
+    free(oSymTable->buckets);
+    free(oSymTable);
 }
 
 size_t SymTable_getLength(SymTable_T oSymTable) {
