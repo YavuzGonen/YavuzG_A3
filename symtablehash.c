@@ -3,7 +3,7 @@
 #include "stdlib.h"
 #include "assert.h"
 
-static const size_t auBucketCounts[] = {5, 10, 2039, 4093, 8191, 16381, 32749, 65521};
+static const size_t auBucketCounts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
 static const size_t numBucketCounts = sizeof(auBucketCounts)/sizeof(auBucketCounts[0]);
 
 /* Return a hash code for pcKey that is between 0 and uBucketCount-1, inclusive. */
@@ -104,7 +104,6 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     int hash;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
-    hash = SymTable_hash(pcKey, oSymTable->max);
     
     if(SymTable_contains(oSymTable, pcKey)) return 0;
 
@@ -116,6 +115,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
         if(!out) return out;
     }
 
+    hash = SymTable_hash(pcKey, oSymTable->max);
     newEntry->key = (char*)malloc(strlen(pcKey) + 1);
     if (newEntry->key == NULL) return 0;
     
