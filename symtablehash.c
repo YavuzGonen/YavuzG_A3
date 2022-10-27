@@ -100,6 +100,7 @@ size_t SymTable_getLength(SymTable_T oSymTable) {
 
 int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     int out;
+    int test;
     struct Binding *newEntry;
     int hash;
     assert(oSymTable != NULL);
@@ -114,7 +115,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
         out = expand(oSymTable);
         if(!out) return out;
     }
-
+    test = oSymTable->max;
     hash = SymTable_hash(pcKey, oSymTable->max);
     newEntry->key = (char*)malloc(strlen(pcKey) + 1);
     if (newEntry->key == NULL) return 0;
