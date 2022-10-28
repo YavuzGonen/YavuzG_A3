@@ -57,8 +57,8 @@ static int expand(SymTable_T oSymTable) {
         }
     }
     
-    oSymTable->max = newMax;
     free(oldBuckets);
+    oSymTable->max = newMax;
     oSymTable->buckets = newBuckets;
     return 1;
 }
