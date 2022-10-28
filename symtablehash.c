@@ -70,7 +70,7 @@ SymTable_T SymTable_new(void) {
     newHashTable->length = 0;
     newHashTable->max = auBucketCounts[0];
     
-    newHashTable->buckets = (struct Binding**)calloc(newHashTable->max, sizeof(struct Binding));
+    newHashTable->buckets = (struct Binding**)calloc(auBucketCounts[0], sizeof(struct Binding*));
     if(newHashTable->buckets == NULL) return NULL;
     return newHashTable;
 }
@@ -110,18 +110,17 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
 
     newEntry = (struct Binding*)malloc(sizeof(struct Binding));
     if(newEntry != NULL) return 0;
-
-    newEntry->key = (char*)malloc(strlen(pcKey) + 1);
-    if (newEntry->key == NULL) return 0;
-    strcpy((char*)newEntry->key, pcKey);
-    newEntry->value = (void*)pvValue;
-
+    
     if(oSymTable->length == oSymTable->max) {
         out = expand(oSymTable);
         if(!out) return out;
     }
-
     hash = SymTable_hash(pcKey, oSymTable->max);
+    newEntry->key = (char*)malloc(strlen(pcKey) + 1);
+    if (newEntry->key == NULL) return 0;
+    
+    strcpy((char*)newEntry->key, pcKey);
+    newEntry->value = (void*)pvValue;
 
     if(oSymTable->buckets[hash] == NULL) {
         newEntry->next = NULL;
