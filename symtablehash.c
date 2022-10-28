@@ -29,7 +29,7 @@ struct SymTable {
     size_t max;
 };
 
-static int expand(SymTable_T oSymTable) {
+static void expand(SymTable_T oSymTable) {
     struct Binding **newBuckets;
     struct Binding **oldBuckets;
     struct Binding *oldTracer;
@@ -47,7 +47,7 @@ static int expand(SymTable_T oSymTable) {
 
     oldBuckets = oSymTable->buckets;
     newBuckets = (struct Binding**)calloc(newMax, sizeof(struct Binding));
-    if (newBuckets == NULL) return 0;
+    if (newBuckets == NULL) return;
 
     for(i=0; i < oSymTable->max; i++) {
         for(oldTracer = oldBuckets[i]; oldTracer != NULL; oldTracer = oldTracer->next) {
@@ -60,7 +60,6 @@ static int expand(SymTable_T oSymTable) {
     free(oldBuckets);
     oSymTable->max = newMax;
     oSymTable->buckets = newBuckets;
-    return 1;
 }
 
 SymTable_T SymTable_new(void) {
@@ -109,11 +108,10 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     if(SymTable_contains(oSymTable, pcKey)) return 0;
 
     newEntry = (struct Binding*)malloc(sizeof(struct Binding));
-    assert(newEntry != NULL);
+    if (newEntry == NULL) return 0;
     
     if(oSymTable->length == oSymTable->max) {
-        out = expand(oSymTable);
-        if(!out) return out;
+        expand(oSymTable);
     }
     hash = SymTable_hash(pcKey, oSymTable->max);
     newEntry->key = (char*)malloc(strlen(pcKey) + 1);
