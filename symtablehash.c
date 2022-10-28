@@ -33,6 +33,7 @@ static void expand(SymTable_T oSymTable) {
     struct Binding **newBuckets;
     struct Binding **oldBuckets;
     struct Binding *oldTracer;
+    struct Binding *temp;
     size_t newMax;
     size_t newHash;
     size_t i;
@@ -50,7 +51,8 @@ static void expand(SymTable_T oSymTable) {
     if (newBuckets == NULL) return;
 
     for(i=0; i < oSymTable->max; i++) {
-        for(oldTracer = oldBuckets[i]; oldTracer != NULL; oldTracer = oldTracer->next) {
+        for(oldTracer = oldBuckets[i]; oldTracer != NULL; oldTracer = temp) {
+            temp = oldTracer->next;
             newHash = SymTable_hash(oldTracer->key, newMax);
             oldTracer->next = newBuckets[newHash];
             newBuckets[newHash] = oldTracer;
