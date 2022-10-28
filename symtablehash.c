@@ -37,7 +37,7 @@ static void expand(SymTable_T oSymTable) {
     size_t newHash;
     size_t i;
     assert(oSymTable != NULL);
-    if(oSymTable->length == auBucketCounts[numBucketCounts-1]) return 0;
+    if(oSymTable->length == auBucketCounts[numBucketCounts-1]) return;
     for(i = 0; i < numBucketCounts-1; i++) {
         if(oSymTable->length == auBucketCounts[i]) {
             newMax = auBucketCounts[i+1];
@@ -99,7 +99,6 @@ size_t SymTable_getLength(SymTable_T oSymTable) {
 }
 
 int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
-    int out;
     struct Binding *newEntry;
     size_t hash;
     assert(oSymTable != NULL);
