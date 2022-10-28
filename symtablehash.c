@@ -109,7 +109,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     if(SymTable_contains(oSymTable, pcKey)) return 0;
 
     newEntry = (struct Binding*)malloc(sizeof(struct Binding));
-    if(newEntry != NULL) return 0;
+    assert(newEntry != NULL);
     
     if(oSymTable->length == oSymTable->max) {
         out = expand(oSymTable);
