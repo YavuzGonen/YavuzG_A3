@@ -108,25 +108,19 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
 
     newEntry = (struct Binding*)malloc(sizeof(struct Binding));
     if (newEntry == NULL) return 0;
-    
+    newEntry->key = (char*)malloc(strlen(pcKey) + 1);
+    if (newEntry->key == NULL) return 0;
+
     if(oSymTable->length == oSymTable->max) {
         expand(oSymTable);
     }
     hash = SymTable_hash(pcKey, oSymTable->max);
-    newEntry->key = (char*)malloc(strlen(pcKey) + 1);
-    if (newEntry->key == NULL) return 0;
     
     strcpy((char*)newEntry->key, pcKey);
     newEntry->value = (void*)pvValue;
 
-    if(oSymTable->buckets[hash] == NULL) {
-        newEntry->next = NULL;
-        oSymTable->buckets[hash] = newEntry;
-    }
-    else {
-        newEntry->next = oSymTable->buckets[hash];
-        oSymTable->buckets[hash] = newEntry;
-    }
+    newEntry->next = oSymTable->buckets[hash];
+    oSymTable->buckets[hash] = newEntry;
     oSymTable->length++;
     return 1;
 }
