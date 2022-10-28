@@ -70,7 +70,7 @@ SymTable_T SymTable_new(void) {
     newHashTable->length = 0;
     newHashTable->max = auBucketCounts[0];
     
-    newHashTable->buckets = (struct Binding**)calloc(auBucketCounts[0], sizeof(struct Binding*));
+    newHashTable->buckets = (struct Binding**)calloc(auBucketCounts[0], sizeof(struct Binding));
     if(newHashTable->buckets == NULL) return NULL;
     return newHashTable;
 }
