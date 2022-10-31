@@ -8,7 +8,9 @@
 #include <assert.h>
 #include "symtable.h"
 
+/* All possible maximum sizes a SymTable can have */
 static const size_t auBucketCounts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
+/* the total number of possible maximum sizes a SymTable can have */
 static const size_t numBucketCounts = sizeof(auBucketCounts)/sizeof(auBucketCounts[0]);
 
 /* Return a hash code for pcKey that is between 0 and uBucketCount-1, inclusive. */
@@ -22,16 +24,19 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount) {
     return uHash % uBucketCount;
 }
 
+/* a structure that has a char *key and void *value pairing that connects 
+it to the other Binding that comes after it with Binding *next pointer */
 struct Binding {
-    char *key;
-    void *value;
-    struct Binding *next;
+    char *key; /* the string key of the Binding */
+    void *value; /* the value the Binding stores for a key */
+    struct Binding *next; /* Binding that comes after current Binding */
 };
 
+/* WRITE LATER */
 struct SymTable {
-    struct Binding **buckets;
-    size_t length;
-    size_t max;
+    struct Binding **buckets; /* an array of pointers to the Bindings in SymTable */
+    size_t length; /* number of bindings in SymTable */
+    size_t max; /* the maximum number of bindings SymTable can have */
 };
 
 static void expand(SymTable_T oSymTable) {
@@ -39,9 +44,9 @@ static void expand(SymTable_T oSymTable) {
     struct Binding **oldBuckets;
     struct Binding *oldTracer;
     struct Binding *temp;
-    size_t newMax;
     size_t newHash;
     size_t i;
+    size_t newMax = 0;
     assert(oSymTable != NULL);
     if(oSymTable->length == auBucketCounts[numBucketCounts-1]) return;
     for(i = 0; i < numBucketCounts-1; i++) {
@@ -134,7 +139,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
 
 void *SymTable_replace(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     void *output;
-    int hash;
+    size_t hash;
     struct Binding *trace;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
@@ -155,7 +160,7 @@ void *SymTable_replace(SymTable_T oSymTable, const char *pcKey, const void *pvVa
 }
 
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
-    int hash;
+    size_t hash;
     struct Binding *trace;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
@@ -171,7 +176,7 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
 }
 
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
-    int hash;
+    size_t hash;
     struct Binding *tracer;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
@@ -188,7 +193,7 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
 
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     void *output;
-    int hash;
+    size_t hash;
     struct Binding* tracer1; 
     struct Binding* tracer2;
     
