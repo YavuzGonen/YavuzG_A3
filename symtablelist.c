@@ -16,7 +16,7 @@ struct Node {
     struct Node *next; /* node that comes after current node */
 };
 
-/* a structure that stores WRITE LATER */
+/* WRITE LATER */
 struct SymTable {
     /* a structure that has a char *key and void *value binding of the 
     most recent entry to the SymTable */
