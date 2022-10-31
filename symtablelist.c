@@ -8,23 +8,26 @@
 #include <assert.h>
 #include "symtable.h"
 
+/* a structure that has a char *key and void *value that connects 
+it to the other node that comes after it with Node *next pointer */
 struct Node {
-    char *key;
-    void *value;
-    struct Node *next;
+    char *key; /* the string key of the node */
+    void *value; /* the value the node stores for a key */
+    struct Node *next; /* node that comes after current node */
 };
 
+/* a structure that stores a char *key and void *value */
 struct SymTable {
-    struct Node *first;
-    size_t length;
+    struct Node *first; /* the first node on the SymTable */
+    size_t length; /* the number of nodes in the SymTable */
 };
 
 SymTable_T SymTable_new(void) {
-    SymTable_T p = (SymTable_T)malloc(sizeof(struct SymTable));
-    if(p == NULL) return NULL;
-    p->length = 0;
-    p->first = NULL;
-    return p;
+    SymTable_T out = (SymTable_T)malloc(sizeof(struct SymTable));
+    if(out == NULL) return NULL;
+    out->length = 0;
+    out->first = NULL;
+    return out;
 }
 
 void SymTable_free(SymTable_T oSymTable) {
@@ -54,7 +57,10 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     if (psNewNode == NULL) return 0;
     
     psNewNode->key = (char*)malloc(strlen(pcKey)+ 1);
-    if (psNewNode->key == NULL) return 0;
+    if (psNewNode->key == NULL) {
+        free(psNewNode);
+        return 0;
+    }
 
     strcpy((char*)psNewNode->key, pcKey);
     psNewNode->value = (void*)pvValue;    
