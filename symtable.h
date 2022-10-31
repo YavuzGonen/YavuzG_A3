@@ -1,3 +1,8 @@
+/******************************************************************/
+/* str.h                                                          */
+/* Author: Yavuz Gonen                                            */
+/******************************************************************/
+
 #ifndef SYMTABLE_INCLUDED
 #define SYMTABLE_INCLUDED
 #include <stddef.h>
