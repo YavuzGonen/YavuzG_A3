@@ -39,7 +39,8 @@ struct SymTable {
     size_t max; /* the maximum number of bindings SymTable can have */
 };
 
-static void expand(SymTable_T oSymTable) {
+/* increases the maximum number of bindings oSymTable can have attached to it */
+static void SymTable_expand(SymTable_T oSymTable) {
     struct Binding **newBuckets;
     struct Binding **oldBuckets;
     struct Binding *oldTracer;
@@ -48,7 +49,11 @@ static void expand(SymTable_T oSymTable) {
     size_t i;
     size_t newMax = 0;
     assert(oSymTable != NULL);
+
+    /* breaks function if max cannot be increased */
     if(oSymTable->length == auBucketCounts[numBucketCounts-1]) return;
+    
+    /* gets the maximum number of bindings oSymTable can have */
     for(i = 0; i < numBucketCounts-1; i++) {
         if(oSymTable->length == auBucketCounts[i]) {
             newMax = auBucketCounts[i+1];
@@ -60,6 +65,7 @@ static void expand(SymTable_T oSymTable) {
     newBuckets = (struct Binding**)calloc(newMax, sizeof(struct Binding));
     if (newBuckets == NULL) return;
 
+    /* rearranges the oldBuckets onto the newBucjets with new hash values */
     for(i=0; i < oSymTable->max; i++) {
         for(oldTracer = oldBuckets[i]; oldTracer != NULL; oldTracer = temp) {
             temp = oldTracer->next;
@@ -124,7 +130,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     if (newEntry->key == NULL) return 0;
 
     if(oSymTable->length == oSymTable->max) {
-        expand(oSymTable);
+        SymTable_expand(oSymTable);
     }
     hash = SymTable_hash(pcKey, oSymTable->max);
     
