@@ -3,10 +3,10 @@
 /* Author: Yavuz Gonen                                            */
 /******************************************************************/
 
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
 #include "symtable.h"
-#include "string.h"
-#include "stdlib.h"
-#include "assert.h"
 
 static const size_t auBucketCounts[] = {509, 1021, 2039, 4093, 8191, 16381, 32749, 65521};
 static const size_t numBucketCounts = sizeof(auBucketCounts)/sizeof(auBucketCounts[0]);

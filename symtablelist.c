@@ -3,10 +3,10 @@
 /* Author: Yavuz Gonen                                            */
 /******************************************************************/
 
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
 #include "symtable.h"
-#include "string.h"
-#include "stdlib.h"
-#include "assert.h"
 
 struct Node {
     char *key;
