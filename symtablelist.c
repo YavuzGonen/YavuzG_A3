@@ -8,7 +8,7 @@
 #include <assert.h>
 #include "symtable.h"
 
-/* a structure that has a char *key and void *value that connects 
+/* a structure that has a char *key and void *value binding that connects 
 it to the other node that comes after it with Node *next pointer */
 struct Node {
     char *key; /* the string key of the node */
@@ -18,6 +18,8 @@ struct Node {
 
 /* a structure that stores a char *key and void *value */
 struct SymTable {
+    /* a structure that has a char *key and void *value binding of the 
+    most recent entry to the SymTable */
     struct Node *first; /* the first node on the SymTable */
     size_t length; /* the number of nodes in the SymTable */
 };
