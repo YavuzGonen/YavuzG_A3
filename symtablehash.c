@@ -134,7 +134,7 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     newEntry->key = (char*)malloc(strlen(pcKey) + 1);
     if (newEntry->key == NULL) return 0;
 
-    // if(oSymTable->length == oSymTable->max) SymTable_expand(oSymTable);
+    /* if(oSymTable->length == oSymTable->max) SymTable_expand(oSymTable); */
     hash = SymTable_hash(pcKey, oSymTable->max);
     
     strcpy((char*)newEntry->key, pcKey);
