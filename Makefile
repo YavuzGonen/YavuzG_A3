@@ -4,7 +4,7 @@ clobber: clean
 clean:
 	rm -f testsymtablehash testsymtablelist *.o
 testsymtablelist: testsymtable.o symtablelist.o
-	gcc217 testsymtable.o testsymtablelist.o -o testsymtablelist
+	gcc217 testsymtable.o symtablelist.o -o testsymtablelist
 testsymtablehash: testsymtable.o symtablehash.o
 	gcc217 testsymtable.o symtablehash.o -o testsymtablehash
 testsymtable.o: testsymtable.c symtable.h
