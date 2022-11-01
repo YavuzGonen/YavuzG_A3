@@ -28,9 +28,12 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount) {
 struct Binding points at another struct Binding that comes after it with
 struct Binding *next */
 struct Binding {
-    char *key; /* the string key of the Binding */
-    void *value; /* the value the Binding stores for a key */
-    struct Binding *next; /* Binding that comes after current Binding */
+    /* the string key of the Binding */
+    char *key; 
+    /* the value the Binding stores for a key */
+    void *value; 
+    /* Binding that comes after current Binding */
+    struct Binding *next; 
 };
 
 /* struct SymTable points at the first element of an array of pointers to a Binding
@@ -39,9 +42,12 @@ list of Bindings. struct SymTable stores size_t length that counts the total num
 of Bindings stored within struct Symtable. struct SymTable also stores size_t max which is the 
 maximum number of Bindings struct SymTable can store. */
 struct SymTable {
-    struct Binding **buckets; /* an array of pointers to the Bindings in SymTable */
-    size_t length; /* number of bindings in SymTable */
-    size_t max; /* the maximum number of bindings SymTable can have */
+    /* an array of pointers to the Bindings in SymTable */
+    struct Binding **buckets;
+    /* number of bindings in SymTable */
+    size_t length;
+    /* the maximum number of bindings SymTable can have */
+    size_t max; 
 };
 
 /* increases the maximum number of bindings oSymTable can have attached to it */
@@ -132,7 +138,10 @@ int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue) {
     newEntry = (struct Binding*)malloc(sizeof(struct Binding));
     if (newEntry == NULL) return 0;
     newEntry->key = (char*)malloc(strlen(pcKey) + 1);
-    if (newEntry->key == NULL) return 0;
+    if (newEntry->key == NULL) {
+        free(newEntry);
+        return 0;
+    }
 
     /* if(oSymTable->length == oSymTable->max) SymTable_expand(oSymTable); */
     hash = SymTable_hash(pcKey, oSymTable->max);

@@ -6,8 +6,10 @@
 #ifndef SYMTABLE_INCLUDED
 #define SYMTABLE_INCLUDED
 #include <stddef.h>
+/* struct SymTable stores pairings of strings and values attatched to
+those strings */
 struct SymTable;
-/* SymTable_T is a pointer to a struct SymTable */
+/* SymTable_T is an alias for SymTable */
 typedef struct SymTable *SymTable_T;
 
 /* Returns a new SymTable object with no bindings, or NULL if insufficient memory is available */
