@@ -163,6 +163,7 @@ void SymTable_map(SymTable_T oSymTable, void (*pfApply)(const char *pcKey, void 
 const void *pvExtra) {
     struct Node* tracer;
     assert(oSymTable != NULL);
+    assert(pfApply != NULL);
     tracer = oSymTable->first;
     while(tracer != NULL) {
         pfApply(tracer->key, (void*)tracer->value, (void*)pvExtra);

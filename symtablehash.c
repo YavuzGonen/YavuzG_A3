@@ -252,6 +252,7 @@ const void *pvExtra) {
     size_t i;
     struct Binding* bucketTracer;
     assert(oSymTable != NULL);
+    assert(pfApply != NULL);
     for(i = 0; i < oSymTable->max; i++) {
         bucketTracer = oSymTable->buckets[i];
         while(bucketTracer != NULL) {
