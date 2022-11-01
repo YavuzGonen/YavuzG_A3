@@ -23,7 +23,7 @@ size_t SymTable_getLength(SymTable_T oSymTable);
 
 /* Adds pcKey into oSymTable and assigns pcKey the value pvValue. Returns int 1
 if the addition was successful and int 0 if unsuccessful due to no more memory
-being left */
+being left. Returns 0 if pcKey is already in oSymTable */
 int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue);
 
 /* Changes the value previously assigned to pcKey inside oSymTable and changes the value to pvValue. 
@@ -36,7 +36,8 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey);
 /* Returns the value assigned to pcKey inside oSymTable or NULL if pcKey isn't in oSymtable */
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey);
 
-/* Returns the value assigned to pcKey inside oSymTable or NULL if pcKey isn't in oSymtable */
+/* If oSymTable contains an entry with key pcKey, then removes that entry from oSymTable 
+and returns the entry's value. Otherwise the function must not change oSymTable and return NULL. */
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey);
 
 /* Applies the function (*pfApply)(pcKey, pvValue, pvExtra) for each pcKey/pvValue 
