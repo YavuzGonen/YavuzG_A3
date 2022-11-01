@@ -40,7 +40,7 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey);
 and returns the entry's value. Otherwise the function must not change oSymTable and return NULL. */
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey);
 
-/* Applies the function (*pfApply)(pcKey, pvValue, pvExtra) for each pcKey/pvValue 
+/* Applies the function (*pfApply)(pcKey, pvValue, pvExtra) for each pcKey and pvValue 
 binding in oSymTable, passing pvExtra as an extra parameter. */
 void SymTable_map(SymTable_T oSymTable, void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra), 
 const void *pvExtra);
