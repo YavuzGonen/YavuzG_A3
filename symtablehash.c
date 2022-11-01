@@ -24,15 +24,20 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount) {
     return uHash % uBucketCount;
 }
 
-/* a structure that has a char *key and void *value pairing that connects 
-it to the other Binding that comes after it with Binding *next pointer */
+/* struct Binding contains a pairing of char *key and void *value. 
+struct Binding points at another struct Binding that comes after it with
+struct Binding *next */
 struct Binding {
     char *key; /* the string key of the Binding */
     void *value; /* the value the Binding stores for a key */
     struct Binding *next; /* Binding that comes after current Binding */
 };
 
-/* WRITE LATER */
+/* struct SymTable points at the first element of an array of pointers to a Binding
+with struct Binding **buckets. Each pointer in the array can be used to start a linked 
+list of Bindings. struct SymTable stores size_t length that counts the total number 
+of Bindings stored within struct Symtable. struct SymTable also stores size_t max which is the 
+maximum number of Bindings struct SymTable can store. */
 struct SymTable {
     struct Binding **buckets; /* an array of pointers to the Bindings in SymTable */
     size_t length; /* number of bindings in SymTable */
