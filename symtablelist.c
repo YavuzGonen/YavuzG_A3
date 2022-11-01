@@ -12,6 +12,8 @@
 struct Node points at another struct Node that comes after it with
 struct Node *next */
 struct Node {
+    /* declerations of char *key and void *value that will be paire and
+    a struct Node *next pointer to the node after the current node */
     char *key; /* the string key of the node */
     void *value; /* the value the node stores for a key */
     struct Node *next; /* node that comes after current node */
@@ -21,9 +23,9 @@ struct Node {
 to the first node in the linked list. struct SymTable also stores size_t length 
 that counts the number of nodes inside the linked list */
 struct SymTable {
-    /* a structure that has a char *key and void *value binding of the 
-    most recent entry to the SymTable */
-    struct Node *first; /* the first node on the SymTable */
+    /* declerations of struct Node *first pointer to the most recently added node
+    and the size_t length */
+    struct Node *first; /* the first and the most recently added node on the SymTable */
     size_t length; /* the number of nodes in the SymTable */
 };
 

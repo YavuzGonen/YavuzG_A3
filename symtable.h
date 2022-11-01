@@ -7,6 +7,7 @@
 #define SYMTABLE_INCLUDED
 #include <stddef.h>
 struct SymTable;
+/* SymTable_T is a pointer to a struct SymTable */
 typedef struct SymTable *SymTable_T;
 
 /* Returns a new SymTable object with no bindings, or NULL if insufficient memory is available */
